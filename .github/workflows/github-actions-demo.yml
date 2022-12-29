@@ -16,16 +16,42 @@ jobs:
         with:
           version: nightly
 
-      - name: Check foundry installation
+      - name: Check Foundry installation
         run: forge --version
 
-      - name: Set up Homebrew
-        id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@master
+      # - name: Set up Homebrew
+      #   id: set-up-homebrew
+      #   uses: Homebrew/actions/setup-homebrew@master
 
-      - name: Install Echidna
-        run: brew install echidna
+      # - name: Install Echidna
+      #   run: brew install echidna
+
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 16
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Compile contracts
+      run: npx hardhat compile
+
+    - name: Run Echidna
+      uses: crytic/echidna-action@v2
+      with:
+        solc-version: 0.8.0
+        files: .
+        contract: Contract
+        crytic-args: --hardhat-ignore-compile
 
       - name: Check Echidna installation
         run: echidna-test --version
 
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v3
