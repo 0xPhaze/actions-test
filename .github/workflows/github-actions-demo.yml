@@ -1,6 +1,6 @@
 on: [push]
 
-name: Install forge
+name: Run tests
 
 jobs:
   check:
@@ -18,13 +18,6 @@ jobs:
 
       - name: Check Foundry installation
         run: forge --version
-
-      # - name: Set up Homebrew
-      #   id: set-up-homebrew
-      #   uses: Homebrew/actions/setup-homebrew@master
-
-      # - name: Install Echidna
-      #   run: brew install echidna
 
     - uses: actions/setup-node@v2
       with:
@@ -47,11 +40,3 @@ jobs:
 
       - name: Check Echidna installation
         run: echidna-test --version
-
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Checkout repository
-#       uses: actions/checkout@v3
