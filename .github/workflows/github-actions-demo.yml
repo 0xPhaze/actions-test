@@ -16,11 +16,16 @@ jobs:
         with:
           version: nightly
 
-      - name: Check installation
+      - name: Check foundry installation
         run: forge --version
 
-      - name: Run tests
-        run: forge test -vvv
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@master
 
-      - name: Run snapshot
-        run: forge snapshot
+      - name: Install Echidna
+        run: brew install echidna
+
+      - name: Check Echidna installation
+        run: echidna-test --version
+
