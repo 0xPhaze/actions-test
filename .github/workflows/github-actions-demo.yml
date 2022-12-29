@@ -19,16 +19,16 @@ jobs:
       - name: Check Foundry installation
         run: forge --version
 
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-          cache: "npm"
+      # - uses: actions/setup-node@v2
+      #   with:
+      #     node-version: 16
+      #     cache: "npm"
 
-      - name: Install dependencies
-        run: npm ci
+      # - name: Install dependencies
+      #   run: npm ci
 
-      - name: Compile contracts
-        run: npx hardhat compile
+      # - name: Compile contracts
+      #   run: npx hardhat compile
 
       - name: Run Echidna
         uses: crytic/echidna-action@v2
@@ -36,7 +36,7 @@ jobs:
           solc-version: 0.8.0
           files: .
           contract: Contract
-          crytic-args: --hardhat-ignore-compile
+          # crytic-args: --hardhat-ignore-compile
 
       - name: Check Echidna installation
         run: echidna-test --version
